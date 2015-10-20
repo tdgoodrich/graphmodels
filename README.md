@@ -6,7 +6,7 @@
 
 ### Datasets
 
-Current available:  
+Currently available:  
 * ant
 
 Coming soon:  
