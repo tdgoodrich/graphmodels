@@ -2,21 +2,21 @@
 
 ### How to run
 
-`make DATASET="[dataset name]"` to run logistic regression with 10-fold cv, will print abcd report
+`make [dataset]` (no `.arff`) to run logistic regression with 10-fold cv, will print abcd report
 
 ### Datasets
 
+[Link to PROMISE Repository](http://openscience.us/repo/defect/ck/)
+
 Currently available:  
 * ant
-
-Coming soon:  
-* jedit
-* ivy
 * camel
-* synapse
-* velocity
+* ivy
+* jedit
+* log4j
 * lucene
 * poi
-* xerces
-* log4j
+* synapse
+* velocity
 * xalan
+* xerces
