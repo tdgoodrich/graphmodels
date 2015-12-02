@@ -1,33 +1,33 @@
 ant:
 	clear
-	python code/log_reg.py datasets/ ant
+	python code/log_reg.py ant
 camel:
 	clear
-	python code/log_reg.py datasets/ camel
+	python code/log_reg.py camel
 ivy:
 	clear
-	python code/log_reg.py datasets/ ivy
+	python code/log_reg.py ivy
 jedit:
 	clear
-	python code/log_reg.py datasets/ jedit
+	python code/log_reg.py jedit
 log4j:
 	clear
-	python code/log_reg.py datasets/ log4j
+	python code/log_reg.py log4j
 lucene:
 	clear
-	python code/log_reg.py datasets/ lucene
+	python code/log_reg.py lucene
 poi:
 	clear
-	python code/log_reg.py datasets/ poi
+	python code/log_reg.py poi
 synapse:
 	clear
-	python code/log_reg.py datasets/ synapse
+	python code/log_reg.py synapse
 velocity:
 	clear
-	python code/log_reg.py datasets/ velocity
+	python code/log_reg.py velocity
 xalan:
 	clear
-	python code/log_reg.py datasets/ xalan
+	python code/log_reg.py xalan
 xerces:
 	clear
-	python code/log_reg.py datasets/ xerces
+	python code/log_reg.py xerces

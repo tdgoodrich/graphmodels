@@ -1,9 +1,13 @@
+
 from abcd import Abcd
 import arff
 import sys
+import os
 import numpy as np
 from sklearn.linear_model import LogisticRegression
 from sklearn import cross_validation
+
+dataset_dir = "datasets"
 
 # Usage:
 #   python log_red.py [dataset directory] [datasets]
@@ -12,10 +16,9 @@ from sklearn import cross_validation
 # - Arguments are valid arff files in the dataset folder
 # - Output is the last column in arff file
 def main():
-	dataset_dir = sys.argv[1]
-	for filename in sys.argv[2:]:
+	for filename in sys.argv[1:]:
 		# Read in arff file
-		dataset = arff.load(open("%s%s.arff" % (dataset_dir, filename), "rb"))
+		dataset = arff.load(open(os.path.join(dataset_dir, filename + ".arff"), "rb"))
 		data = np.array(dataset['data'])
 
 		# Take only the numeric features (exclude the output field here)
