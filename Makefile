@@ -1,3 +1,6 @@
+cluster:
+	clear
+	python code/cluster.py ant
 ant:
 	clear
 	python code/log_reg.py ant

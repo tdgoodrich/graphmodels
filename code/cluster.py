@@ -1,16 +1,10 @@
-# Usage:
-#   python log_red.py [dataset directory] [datasets]
-#
-# Assumes:
-# - Arguments are valid arff files in the dataset folder
-# - Output is the last column in arff file
 
 from abcd import Abcd
 import arff
 import sys
 import os
 import numpy as np
-from sklearn.linear_model import LogisticRegression
+from sklearn.cluster import DBSCAN
 from sklearn import cross_validation
 
 dataset_dir = "datasets"
@@ -41,15 +35,11 @@ def main():
 		train, target = readArff(filename)
 
 		# Set up the learner we want
-		learner = LogisticRegression()
-
-		# Do a 10-fold (or biggest possible) stratified cross validation
-		k = min(10, len(target))
-		skf = cross_validation.StratifiedKFold(y=target, n_folds=k)
-		for count, (traincv, testcv) in enumerate(skf, start=1):
-			model = learner.fit(train[traincv], target[traincv])
-			predicted = model.predict(train[testcv])
-			printStatistics(k=k, count=count, actual=target[traincv], predicted=predicted)
+		eps = 50
+		min_samples = 5
+		learner = DBSCAN(eps=eps, min_samples=min_samples)
+		clusters = learner.fit_predict(train)
+		print clusters, len(set(clusters))
 
 if __name__ == "__main__":
 	main()
