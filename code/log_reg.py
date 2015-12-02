@@ -1,3 +1,9 @@
+# Usage:
+#   python log_red.py [dataset directory] [datasets]
+#
+# Assumes:
+# - Arguments are valid arff files in the dataset folder
+# - Output is the last column in arff file
 
 from abcd import Abcd
 import arff
@@ -8,13 +14,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn import cross_validation
 
 dataset_dir = "datasets"
-
-# Usage:
-#   python log_red.py [dataset directory] [datasets]
-#
-# Assumes:
-# - Arguments are valid arff files in the dataset folder
-# - Output is the last column in arff file
 
 def readArff(filename):
 	# Read in arff file
@@ -47,11 +46,10 @@ def main():
 		# Do a 10-fold (or biggest possible) stratified cross validation
 		k = min(10, len(target))
 		skf = cross_validation.StratifiedKFold(y=target, n_folds=k)
-		for count, (traincv, testcv) in enumerate(skf):
+		for count, (traincv, testcv) in enumerate(skf, start=1):
 			model = lr.fit(train[traincv], target[traincv])
 			predicted = model.predict(train[testcv])
 			printStatistics(k=k, count=count, actual=target[traincv], predicted=predicted)
-
 
 if __name__ == "__main__":
 	main()
