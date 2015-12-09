@@ -3,8 +3,9 @@ from abcd import Abcd
 import arff
 import sys
 import os
+import time
 import numpy as np
-from sklearn.cluster import DBSCAN
+from sklearn.cluster import MiniBatchKMeans
 from sklearn import cross_validation
 
 dataset_dir = "datasets"
@@ -35,11 +36,34 @@ def main():
 		train, target = readArff(filename)
 
 		# Set up the learner we want
-		eps = 50
-		min_samples = 5
-		learner = DBSCAN(eps=eps, min_samples=min_samples)
-		clusters = learner.fit_predict(train)
-		print clusters, len(set(clusters))
+		samples = 15
+		start = time.time()
+		fscore = 0
+		for x in xrange(samples):
+			n_clusters = 10
+			learner = MiniBatchKMeans(n_clusters=n_clusters, max_no_improvement=10, reassignment_ratio=0.02)
+			
+			# Form the clusters
+			cluster_assignments = learner.fit_predict(train)
+			
+			# Get the bug prediction
+			counts = [[0,0] for _ in xrange(n_clusters)]
+			for point, assignment in enumerate(cluster_assignments):
+	 			counts[assignment][int(target[point])] += 1
+			cluster_bug_prediction = [0 if x[0] > x[1] else 1 for x in counts]
+			bug_prediction = [str(cluster_bug_prediction[assignment]) for assignment in cluster_assignments]
+			tp, tn, fp, fn = 0,0,0,0
+			for actual, predicted in zip(target, bug_prediction):
+				if actual == "1" and predicted == "1":
+					tp += 1
+				elif actual == "0" and predicted == "1":
+					fp += 1
+				elif actual == "1" and predicted == "0":
+					fn += 1
+			fscore += 2.0*tp/(2.0*tp+fp+fn)
+		print "Time taken: ", time.time()-start
+		print "F-Score: ", fscore / samples
+
 
 if __name__ == "__main__":
 	main()

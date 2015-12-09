@@ -1,3 +1,7 @@
+de:
+	clear
+	python code/de.py ivy
+
 cluster:
 	clear
 	python code/cluster.py ant
